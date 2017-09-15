@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  creationTimestamp: null
+  labels:
+    app: tcpdump-aporeto
+  name: tcpdump-aporeto
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: tcpdump-aporeto
+    spec:
+      containers:
+      - args:
+        - -i
+        - eth0
+        - port 80
+        - -vv
+        - -n
+        image: corfr/tcpdump:latest
+        imagePullPolicy: Always
+        name: tcpdump
+        securityContext:
+          privileged: true
+      hostNetwork: true
+
